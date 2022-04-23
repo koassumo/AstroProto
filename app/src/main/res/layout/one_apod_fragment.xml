@@ -68,6 +68,10 @@
                 <!--        android:scaleType="fitCenter"-->
                 <!--        android:adjustViewBounds="true"-->
 
+<!--                <VideoView-->
+<!--                    android:id="@+id/vv_url_apod_video"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"/>-->
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_explanation_apod"

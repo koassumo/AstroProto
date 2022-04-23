@@ -26,7 +26,7 @@ data class APODResponseDTO (
     val hdurl: String? = null,
 
     @Expose
-    val mediaType: String? = null,
+    val media_type: String? = null,
 
     @Expose
     val serviceVersion: String? = null,

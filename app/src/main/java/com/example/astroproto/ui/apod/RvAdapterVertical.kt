@@ -3,14 +3,20 @@ package com.example.astroproto.ui.apod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.astroproto.R
+import com.example.astroproto.model.IImageLoader
 import com.example.astroproto.model.entity.APODResponseDTO
+import com.example.astroproto.ui.GladeImageLoader
 
 import com.example.astroproto.ui.IMyOnClickListener
+import kotlinx.android.synthetic.main.one_apod_fragment.*
+import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.view.*
 
-class RvAdapterVertical : RecyclerView.Adapter<RvAdapterVertical.ViewHolder> () {
+class RvAdapterVertical (val imageLoader: IImageLoader<ImageView>):
+    RecyclerView.Adapter<RvAdapterVertical.ViewHolder>() {
 
     var adapterList: List<APODResponseDTO> = listOf()
         set(value) {
@@ -35,6 +41,11 @@ class RvAdapterVertical : RecyclerView.Adapter<RvAdapterVertical.ViewHolder> () 
         fun bind (adapterItemView: APODResponseDTO) {
             itemView.findViewById<TextView>(R.id.tv_title_apod).text = adapterItemView.title
             itemView.findViewById<TextView>(R.id.tv_date_apod).text = adapterItemView.date
+            if (adapterItemView.copyright != null)
+                itemView.tv_copyright_apod.text = "\u00A9 ${adapterItemView.copyright}"
+            else
+                itemView.tv_copyright_apod.text = ""
+            adapterItemView.url?.let { imageLoader.loadInto(it, itemView.iv_url_apod) }
 //            itemView.findViewById<TextView>(R.id.tv_copyright_apod).text = "\u00A9 ${adapterItemView.copyright}"
 //            itemView.iv_url_apod.setImageResource(R.drawable.apod_temp)
 //

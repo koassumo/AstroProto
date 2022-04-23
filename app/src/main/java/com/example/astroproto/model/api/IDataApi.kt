@@ -9,10 +9,10 @@ interface IDataApi {
     @GET( "/planetary/apod?api_key=DEMO_KEY")
     fun getTodayApi(): Single<APODResponseDTO>
 
-    @GET( "/planetary/apod?api_key=DEMO_KEY&date=2022-04-01")
+    @GET( "/planetary/apod?api_key=DEMO_KEY&date=2022-03-30")
     fun getOneDayApi(): Single<APODResponseDTO>
 
-    @GET( "/planetary/apod?api_key=DEMO_KEY&start_date=2022-04-01&end_date=2022-04-20")
+    @GET( "/planetary/apod?api_key=DEMO_KEY&start_date=2022-04-01&end_date=2022-04-5")
     fun getListApi(): Single<List<APODResponseDTO>>
 
     @GET( "/DONKI/FLR?api_key=DEMO_KEY")

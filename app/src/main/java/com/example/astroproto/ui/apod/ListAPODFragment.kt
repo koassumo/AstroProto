@@ -13,6 +13,7 @@ import com.example.astroproto.R
 import com.example.astroproto.model.entity.*
 import com.example.astroproto.model.retrofit.RetrofitRepoApi
 import com.example.astroproto.model.retrofit.RetrofitRepoApi3
+import com.example.astroproto.ui.GladeImageLoader
 import com.example.astroproto.ui.IMyOnClickListener
 import io.reactivex.rxjava3.core.Single
 import kotlinx.android.synthetic.main.list_apod_fragment.*
@@ -36,9 +37,11 @@ class ListAPODFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ListAPODViewModel::class.java)
 
+
+        val imageLoader = GladeImageLoader()
         rv_list_apod_vertical.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapterAPODVertical = RvAdapterVertical()
+        val adapterAPODVertical = RvAdapterVertical(imageLoader)
         rv_list_apod_vertical.adapter = adapterAPODVertical
 
 //        viewModel.liveDataAPODVertical.observe(viewLifecycleOwner, Observer {

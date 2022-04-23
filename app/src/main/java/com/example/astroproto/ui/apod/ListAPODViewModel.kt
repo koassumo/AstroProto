@@ -14,8 +14,8 @@ class ListAPODViewModel : ViewModel() {
         // updateListFirst()
     }
 
-    private fun updateListFirst() {
-        liveDataAPODVertical.value = RepositoryRv.getListAPODResponseDTO()
-    }
+//    private fun updateListFirst() {
+//        liveDataAPODVertical.value = RepositoryRv.getListAPODResponseDTO()
+//    }
 
 }

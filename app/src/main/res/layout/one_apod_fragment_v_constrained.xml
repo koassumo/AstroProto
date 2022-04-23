@@ -60,6 +60,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
+            <VideoView
+                android:id="@+id/wv_url_video_apod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_apod"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_explanation_apod"
