@@ -73,7 +73,7 @@ class RvAdapterSolarVertical : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    // определяем тип конкретного Note на основе его полей и позиции
+    // определяем тип конкретного Item на основе его полей и позиции
     override fun getItemViewType(position: Int): Int {
         return when (adapterList[position].classType) {
             "header" -> TYPE_HEADER

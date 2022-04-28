@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.apod.OneAPODFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/my_container_anim">
+
+
     <LinearLayout
         android:id="@+id/main1"
         android:layout_width="match_parent"
@@ -34,6 +40,11 @@
                     <!--            убирает выравнивание элементов по некой базовой линии-->
                     <!--            android:baselineAligned="false"-->
 
+                    <VideoView
+                        android:id="@+id/vv_true_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_title_apod"
                         style="@style/margin_all_normal"
@@ -58,7 +69,7 @@
 
 
                 <ImageView
-                    android:id="@+id/iv_url_apod"
+                    android:id="@+id/iv_url_apod_v"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -99,5 +110,5 @@
 
     </LinearLayout>
 
-
+    </FrameLayout>
 </androidx.core.widget.NestedScrollView>

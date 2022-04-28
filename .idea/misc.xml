@@ -12,7 +12,7 @@
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/list_solar_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/main_fragment.xml" value="0.2590448625180897" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment.xml" value="0.36666666666666664" />
-        <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_v_constrained.xml" value="0.34763313609467456" />
+        <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_v_constrained.xml" value="0.33" />
       </map>
     </option>
   </component>

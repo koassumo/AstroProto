@@ -17,19 +17,20 @@
             android:id="@+id/tv_date_solar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/grey_50"
-            android:backgroundTint="@color/blue_grey_200"
+            android:background="@color/grey_100"
+            android:backgroundTint="@color/blue_grey_100"
             android:paddingTop="@dimen/step_small"
             android:paddingBottom="@dimen/step_small"
             android:text="@string/no_text_yet"
             android:textAlignment="center"
-            android:windowBackground="@color/blue_grey_200"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guide_line"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+<!--        android:windowBackground="@color/blue_grey_200"-->
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_line"

@@ -19,36 +19,32 @@ class ListSolarViewModel : ViewModel() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyyy-MM-dd")
 
-        // создаем лист, дополняем датами
-        var listForRV = mutableListOf<SolarResponseDTO>()
-        repeat(55) {
+        // создаем массив 1 (listForRV), заполняем датами за 30 дней, класс солнечной активности "B"
+        val listForRV = mutableListOf<SolarResponseDTO>()
+        repeat(30) {
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             listForRV.add(SolarResponseDTO(sdf.format(calendar.time), "B"))
         }
 
-        // создаем вспомогательный массив
-        // var listSolarResponse = mutableListOf<SolarResponseDTO>()
-        var listSolarResponse = RepositorySolar.getListSolarResponse().onEach {
+        // создаем массив 2 (listSolarResponse) с данными из API (сейчас здесь заглушка с датами из репозитория)
+        val listSolarResponse = RepositorySolar.getListSolarResponse().onEach {
             it.beginTime = it.beginTime?.take(10)
+            // берем только 10 первых символов, т.к. они определяют дату в формате "yyyy-MM-dd"
         }
-        println(listSolarResponse.size)
 
-
-
-
-
-        // заменяем в массивеRV нужными данными из API
+        // В массиве 1 берем каждый элемент (из 30 шт.) и проверяем есть ли такой элемент в
+        // массиве 2 (сравниваем по дате). Если есть, то заменяем элемент массива 1 на элемент массива 2
         listSolarResponse.forEach { itemResponse ->
             val seekTime = itemResponse.beginTime
             listForRV.forEach { itemRVData ->
-                if (itemRVData.beginTime.equals(seekTime)) itemRVData.classType =
-                    itemResponse.classType
+                if (itemRVData.beginTime.equals(seekTime))
+                    itemRVData.classType =itemResponse.classType
             }
         }
 
-        listForRV.add(0, SolarResponseDTO("This is header0", "header"))
-        listForRV.add(5, SolarResponseDTO("This is header1", "header"))
-        listForRV.add(10, SolarResponseDTO("This is header2", "header"))
+        //при необходимости можно добавить какие-нибудь headers на неделю или на месяц
+        listForRV.add(0, SolarResponseDTO("April", "header"))
+        listForRV.add(28, SolarResponseDTO("March", "header"))
 
         liveDataSolarVertical.value = listForRV
     }
