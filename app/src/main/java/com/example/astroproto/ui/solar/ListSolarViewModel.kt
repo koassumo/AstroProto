@@ -10,11 +10,7 @@ import java.util.*
 class ListSolarViewModel : ViewModel() {
 
     val liveDataSolarVertical = MutableLiveData<List<SolarResponseDTO>>()
-
-    init {
-        updateListFirst()
-    }
-
+    init {updateListFirst()}
     private fun updateListFirst() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyyy-MM-dd")
@@ -26,14 +22,16 @@ class ListSolarViewModel : ViewModel() {
             listForRV.add(SolarResponseDTO(sdf.format(calendar.time), "B"))
         }
 
-        // создаем массив 2 (listSolarResponse) с данными из API (сейчас здесь заглушка с датами из репозитория)
+        // создаем массив 2 (listSolarResponse) с данными из API (сейчас здесь заглушка с датами
+        // из репозитория)
         val listSolarResponse = RepositorySolar.getListSolarResponse().onEach {
             it.beginTime = it.beginTime?.take(10)
             // берем только 10 первых символов, т.к. они определяют дату в формате "yyyy-MM-dd"
         }
 
         // В массиве 1 берем каждый элемент (из 30 шт.) и проверяем есть ли такой элемент в
-        // массиве 2 (сравниваем по дате). Если есть, то заменяем элемент массива 1 на элемент массива 2
+        // массиве 2 (сравниваем по дате). Если есть, то заменяем элемент массива 1 на
+        // элемент массива 2
         listSolarResponse.forEach { itemResponse ->
             val seekTime = itemResponse.beginTime
             listForRV.forEach { itemRVData ->

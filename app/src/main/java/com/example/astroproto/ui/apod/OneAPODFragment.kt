@@ -37,7 +37,7 @@ class OneAPODFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.one_apod_fragment_v_constrained, container, false)
+        return inflater.inflate(R.layout.one_apod_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,46 +71,52 @@ class OneAPODFragment : Fragment() {
 
 
 
-        iv_url_apod_v.setOnClickListener {
-            isExpanded = !isExpanded
+//        iv_url_apod_v.setOnClickListener {
+//            isExpanded = !isExpanded
+//
+//            // описание перехода
+//            TransitionManager.beginDelayedTransition(
+//                container_anim, TransitionSet()
+//                    .addTransition(ChangeBounds())
+//                    .addTransition(ChangeImageTransform())
+//            )
+//
+//            // описание целевого состояния
+//            val params: ViewGroup.LayoutParams = iv_url_apod_v.layoutParams
+//
+//            params.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT
+//            else ViewGroup.LayoutParams.WRAP_CONTENT
+//
+//            params.height = if (isExpanded) ViewGroup.VISIBLE
+//            else ViewGroup.GONE
+//
+//            iv_url_apod_v.layoutParams = params  // на кой? работает и без
+//
+//            iv_url_apod_v.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP
+//            else ImageView.ScaleType.FIT_CENTER
+//
+//
+//            // описание целевого состояния
+//            val params2: ViewGroup.LayoutParams = tv_explanation_apod_v.layoutParams
+//
+//            params2.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT
+//            else ViewGroup.LayoutParams.WRAP_CONTENT
+//
+//            params2.height = if (isExpanded) ViewGroup.VISIBLE
+//            else ViewGroup.GONE
+//
+//            tv_explanation_apod_v.layoutParams = params  // на кой? работает и без
 
-            // описание перехода
-            TransitionManager.beginDelayedTransition(
-                container_anim, TransitionSet()
-                    .addTransition(ChangeBounds())
-                    .addTransition(ChangeImageTransform())
-            )
-
-            // описание целевого состояния
-            val params: ViewGroup.LayoutParams = iv_url_apod_v.layoutParams
-
-            params.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT
-            else ViewGroup.LayoutParams.WRAP_CONTENT
-
-            params.height = if (isExpanded) ViewGroup.VISIBLE
-            else ViewGroup.GONE
-
-            iv_url_apod_v.layoutParams = params  // на кой? работает и без
-
-            iv_url_apod_v.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP
-            else ImageView.ScaleType.FIT_CENTER
 
 
-            // описание целевого состояния
-            val params2: ViewGroup.LayoutParams = tv_explanation_apod_v.layoutParams
 
-            params2.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT
-            else ViewGroup.LayoutParams.WRAP_CONTENT
 
-            params2.height = if (isExpanded) ViewGroup.VISIBLE
-            else ViewGroup.GONE
 
-            tv_explanation_apod_v.layoutParams = params  // на кой? работает и без
 
 //            tv_explanation_apod_v.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP
 //            else ImageView.ScaleType.FIT_CENTER
 
-        }
+//        }
 
 
 //            }
