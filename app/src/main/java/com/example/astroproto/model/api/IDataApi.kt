@@ -12,7 +12,7 @@ interface IDataApi {
     @GET( "/planetary/apod?api_key=DEMO_KEY&date=2022-03-29")
     fun getOneDayApi(): Single<APODResponseDTO>
 
-    @GET( "/planetary/apod?api_key=DEMO_KEY&start_date=2022-01-29&end_date=2022-04-07")
+    @GET( "/planetary/apod?api_key=DEMO_KEY&start_date=2022-03-29&end_date=2022-04-07")
     fun getListApi(): Single<List<APODResponseDTO>>
 
     @GET( "/DONKI/FLR?api_key=DEMO_KEY")

@@ -20,6 +20,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import io.reactivex.rxjava3.core.Single
+import kotlinx.android.synthetic.main.item_rv_apod.view.*
 import kotlinx.android.synthetic.main.one_apod_fragment.*
 import kotlinx.android.synthetic.main.one_apod_fragment.iv_url_apod_v
 import kotlinx.android.synthetic.main.one_apod_fragment.tv_copyright_apod
@@ -32,13 +33,19 @@ import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.tv_explana
 class OneAPODFragment : Fragment() {
 
     companion object {
-        fun newInstance() = OneAPODFragment()
+
+        //константа для передачи данных из фрагмента во фрагмент
+        const val APOD_RESPONSE_DTO_EXTRA = "APOD_RESPONSE_DTO_EXTRA"
+
+        // фабричный метод
+        fun newInstance(bundle: Bundle): OneAPODFragment =
+            OneAPODFragment().apply { arguments = bundle }
     }
+
 
     //private lateinit var viewModel: OneAPODViewModel
     //private lateinit var apodResponseBundle: APODResponseTEMP
     private var isExpanded = false
-    var api_key = "AIzaSyD4u_4DeWKoF0UMe7Ta2AtmT4dFbcWHkEc"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,33 +56,39 @@ class OneAPODFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // т.к. данные передаем из фрагмента во фрагмент (bundle), то данные является parcelable
+        // достаем их в нормальный вид
+        val myAPODResponseDTO = arguments?.getParcelable<APODResponseDTO>(APOD_RESPONSE_DTO_EXTRA)
+
+
 //        viewModel = ViewModelProvider(this).get(OneAPODViewModel::class.java)
 //        apodResponseBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: APODResponseTEMP()
         // mainView.visibility = View.GONE
         // loadingLayout.visibility = View.VISIBLE
 
-// *************
-        val anySingle: Single<APODResponseDTO> =
-            RetrofitRepoApi(ApiHolder().dataApi).getRepoOneDayApi()
-        anySingle.subscribe({
-            println(it)
-            displayData(it)
-        }, {
-            println("onError: ${it.message}-----------------------------------------------")
-        })
-
-        val mWebView = view_youtube_player
-
-        mWebView.getSettings().setJavaScriptEnabled(true)
-        mWebView.getSettings().setPluginState(WebSettings.PluginState.ON)
-        mWebView.loadUrl("https://www.youtube.com/embed/m8qvOpcDt1o?rel=0" + "?autoplay=1&vq=small")
-        //mWebView.loadUrl("http://www.youtube.com/embed/" + videoID.toString() + "?autoplay=1&vq=small")
-        mWebView.setWebChromeClient(WebChromeClient())
+// ************* ВАРИАНТ 1. Выводим на дисплей данные, которые пришли из предыдущего фрагмента
+//                          т.е не идем в Инет, чтобы обновить данные
+        if (myAPODResponseDTO != null) {
+            displayData(myAPODResponseDTO)
+        }
 
 
-
-
+// ************* ВАРИАНТ 2. Идем в инет для обновления данных и выводим их на дисплей
 //
+//        val anySingle: Single<APODResponseDTO> =
+//            RetrofitRepoApi(ApiHolder().dataApi).getRepoOneDayApi()
+//        anySingle.subscribe({
+//            println(it)
+//            displayData(it)
+//        }, {
+//            println("onError: ${it.message}-----------------------------------------------")
+//        })
+
+
+
+
+//        тут херь
 //        // Get reference to the view of Video player
 //        val ytPlayer = view_youtube_player as YouTubePlayerView
 //
@@ -115,12 +128,6 @@ class OneAPODFragment : Fragment() {
 //
 
 
-
-
-
-
-
-
     }
 
     private fun displayData(apodResponseDTO: APODResponseDTO) {
@@ -129,12 +136,20 @@ class OneAPODFragment : Fragment() {
         tv_copyright_apod.text = "\u00A9 ${apodResponseDTO.copyright}"
         tv_explanation_apod_v.text = apodResponseDTO.explanation
 
-//        when (apodResponseDTO.media_type) {
-//            "image" -> {
-        val imageLoader = GladeImageLoader()
-        apodResponseDTO.url?.let { imageLoader.loadInto(it, iv_url_apod_v) }
-
-
+        if (apodResponseDTO.media_type == "video") {
+            wv_one_url_video_apod.visibility = View.VISIBLE
+            iv_url_apod_v.visibility = View.GONE
+            val mWebView = wv_one_url_video_apod
+            mWebView.getSettings().setJavaScriptEnabled(true)
+            mWebView.getSettings().setPluginState(WebSettings.PluginState.ON)
+            mWebView.loadUrl(apodResponseDTO.url + "&autoplay=1&vq=small")
+            mWebView.setWebChromeClient(WebChromeClient())
+        } else {
+            wv_one_url_video_apod.visibility = View.GONE
+            iv_url_apod_v.visibility = View.VISIBLE
+            val imageLoader = GladeImageLoader()
+            apodResponseDTO.url?.let { imageLoader.loadInto(it, iv_url_apod_v) }
+        }
 
 //        iv_url_apod_v.setOnClickListener {
 //            isExpanded = !isExpanded
@@ -173,11 +188,6 @@ class OneAPODFragment : Fragment() {
 //            tv_explanation_apod_v.layoutParams = params  // на кой? работает и без
 
 
-
-
-
-
-
 //            tv_explanation_apod_v.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP
 //            else ImageView.ScaleType.FIT_CENTER
 
@@ -206,7 +216,6 @@ class OneAPODFragment : Fragment() {
 //        }
 
     }
-
 
 
 }

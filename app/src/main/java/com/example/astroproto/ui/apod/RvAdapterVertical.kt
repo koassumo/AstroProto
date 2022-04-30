@@ -15,6 +15,7 @@ import com.example.astroproto.model.entity.APODResponseDTO
 import com.example.astroproto.ui.GladeImageLoader
 
 import com.example.astroproto.ui.IMyOnClickListener
+import com.example.astroproto.ui.IMyOnClickListenerAPOD
 import kotlinx.android.synthetic.main.item_rv_apod.view.*
 import kotlinx.android.synthetic.main.one_apod_fragment.*
 import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.view.*
@@ -28,7 +29,7 @@ class RvAdapterVertical(val imageLoader: IImageLoader<ImageView>) :
             field = value
             notifyDataSetChanged()
         }
-    var myListener: IMyOnClickListener? = null
+    var myListenerAPOD: IMyOnClickListenerAPOD? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
@@ -59,8 +60,7 @@ class RvAdapterVertical(val imageLoader: IImageLoader<ImageView>) :
                 itemView.wv_rv_url_video_apod.loadUrl(adapterItemView.url + "&autoplay=1&vq=small")
                 itemView.wv_rv_url_video_apod.setWebChromeClient(WebChromeClient())
             } else {
-                itemView.iv_rv_url_apod.visibility = View.GONE
-                //adapterItemView.url?.let { imageLoader.loadInto(it, itemView.iv_rv_url_apod) }
+                adapterItemView.url?.let { imageLoader.loadInto(it, itemView.iv_rv_url_apod) }
             }
 //            itemView.findViewById<TextView>(R.id.tv_copyright_apod).text = "\u00A9 ${adapterItemView.copyright}"
 //            itemView.iv_url_apod.setImageResource(R.drawable.apod_temp)
@@ -72,7 +72,7 @@ class RvAdapterVertical(val imageLoader: IImageLoader<ImageView>) :
 
 
             itemView.setOnClickListener {
-                myListener?.onMyClicked(it)
+                myListenerAPOD?.onMyClicked(apodResponseDTO = adapterItemView)
             }
 
         }

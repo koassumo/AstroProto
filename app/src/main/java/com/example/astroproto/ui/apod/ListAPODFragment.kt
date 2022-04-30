@@ -15,6 +15,7 @@ import com.example.astroproto.model.retrofit.RetrofitRepoApi
 import com.example.astroproto.model.retrofit.RetrofitRepoApi3
 import com.example.astroproto.ui.GladeImageLoader
 import com.example.astroproto.ui.IMyOnClickListener
+import com.example.astroproto.ui.IMyOnClickListenerAPOD
 import io.reactivex.rxjava3.core.Single
 import kotlinx.android.synthetic.main.list_apod_fragment.*
 
@@ -60,11 +61,17 @@ class ListAPODFragment : Fragment() {
         })
 
 
-        adapterAPODVertical.myListener = object : IMyOnClickListener {
-            override fun onMyClicked(rv_item_view: View) {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, OneAPODFragment())?.addToBackStack(null)
-                    ?.commit()
+        adapterAPODVertical.myListenerAPOD = object : IMyOnClickListenerAPOD {
+            override fun onMyClicked(apodResponseDTO: APODResponseDTO) {
+                activity?.supportFragmentManager?.let {
+                    it.beginTransaction()
+                        .replace(R.id.container, OneAPODFragment.newInstance(Bundle().apply {
+                            putParcelable(OneAPODFragment.APOD_RESPONSE_DTO_EXTRA, apodResponseDTO)
+                        }
+                        ))
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
         }
 //
