@@ -13,7 +13,7 @@
 
     <Transition
         app:constraintSetEnd="@layout/one_apod_fragment_end"
-        app:constraintSetStart="@layout/one_apod_fragment"
+        app:constraintSetStart="@layout/one_apod_fragment_start"
         motion:duration="1000">
 
         <OnClick motion:targetId="@id/iv_url_apod_v" />

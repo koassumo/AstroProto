@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.apod.OneAPODFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/one_apod_fragment_v_constrained_scene"
+            app:motionDebug="SHOW_ALL">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_title_apod"
+                style="@style/margin_all_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/no_text_yet"
+                android:gravity="top|start"
+                android:textSize="@dimen/text_size_heading"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_date_apod"
+                app:layout_constraintHorizontal_weight="0.8"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_date_apod"
+                style="@style/margin_all_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="top|end"
+                android:text="@string/no_text_yet"
+                android:textSize="@dimen/text_size_normal"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_title_apod"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.2"
+                />
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/wv_one_url_video_apod"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_apod"
+                />
+
+<!--            <com.google.android.youtube.player.YouTubePlayerView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="250dp"-->
+<!--                android:id="@+id/view_youtube_player"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_title_apod"-->
+<!--                />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/view_youtube_player"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="250dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_title_apod"-->
+<!--                />-->
+
+            <ImageView
+                android:id="@+id/iv_url_apod_v"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/no_image"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wv_one_url_video_apod" />
+
+            <VideoView
+                android:id="@+id/wv_url_video_apod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_apod"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_explanation_apod_v"
+                style="@style/margin_all_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:text="no text yet"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/iv_url_apod_v"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_copyright_apod"
+                style="@style/margin_all_normal"
+                android:paddingBottom="@dimen/step_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="no copyright text yet"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/tv_explanation_apod_v"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

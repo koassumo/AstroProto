@@ -17,7 +17,7 @@ import com.example.astroproto.ui.GladeImageLoader
 import com.example.astroproto.ui.IMyOnClickListener
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
 import kotlinx.android.synthetic.main.item_rv_apod.view.*
-import kotlinx.android.synthetic.main.one_apod_fragment.*
+import kotlinx.android.synthetic.main.one_apod_fragment_start.*
 import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.view.*
 import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.view.tv_copyright_apod
 
