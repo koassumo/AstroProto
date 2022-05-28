@@ -9,7 +9,7 @@ class GladeImageLoader: IImageLoader<ImageView> {
     override fun loadInto(url: String, container: ImageView) {
         Glide.with(container.context)
             .load(url)
-//            .override(300, 100)
+            .override(300, 200)
 //            .centerCrop()
             .into(container )
 

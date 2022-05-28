@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.astroproto.R
+import com.example.astroproto.databinding.MainFragmentBinding
+import com.example.astroproto.ui.BaseFragment
 import com.example.astroproto.ui.IMyOnClickListener
 import com.example.astroproto.ui.apod.ListAPODFragment
 import com.example.astroproto.ui.solar.ListSolarFragment
-import kotlinx.android.synthetic.main.main_fragment.*
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -24,10 +25,11 @@ class MainFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    ): View? {
+        return providePersistentView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,10 +39,10 @@ class MainFragment : Fragment() {
 
 
         // 1. RV - A Picture Of The Day (APOD)
-        rv_apod.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvApod.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         val adapterAPOD = RvAdapterCommon()
-        rv_apod.adapter = adapterAPOD
+        binding.rvApod.adapter = adapterAPOD
 
         viewModel.liveDataAPOD.observe(viewLifecycleOwner, Observer {
             adapterAPOD.adapterList = it       // вызов set в адаптере
@@ -57,9 +59,9 @@ class MainFragment : Fragment() {
 
 
         // 2. RV - Solar Flare
-        rv_solar.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvSolar.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val adapterSolar = RvAdapterCommon()
-        rv_solar.adapter = adapterSolar
+        binding.rvSolar.adapter = adapterSolar
 
         viewModel.liveDataSolar.observe(viewLifecycleOwner, Observer {
             adapterSolar.adapterList = it       // вызов set в адаптере
@@ -74,9 +76,9 @@ class MainFragment : Fragment() {
 
 
         // 3. RV - Geomagnetic Storm
-        rv_geo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvGeo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val adapterGeo = RvAdapterCommon()
-        rv_geo.adapter = adapterGeo
+        binding.rvGeo.adapter = adapterGeo
 
         viewModel.liveDataGeo.observe(viewLifecycleOwner, Observer {
             adapterGeo.adapterList = it       // вызов set в адаптере
@@ -84,9 +86,9 @@ class MainFragment : Fragment() {
         // TODO: onClickListener
 
         // 4. RV - Earth Polychromatic Imaging Camera (Epic)
-        rv_epic.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvEpic.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val adapterEpic = RvAdapterCommon()
-        rv_epic.adapter = adapterEpic
+        binding.rvEpic.adapter = adapterEpic
 
         viewModel.liveDataEpic.observe(viewLifecycleOwner, Observer {
             adapterEpic.adapterList = it       // вызов set в адаптере
@@ -95,19 +97,15 @@ class MainFragment : Fragment() {
 
 
         // 5. RV - Mars Rovers Photos
-        rv_mars.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvMars.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val adapterMars = RvAdapterCommon()
-        rv_mars.adapter = adapterMars
+        binding.rvMars.adapter = adapterMars
 
         viewModel.liveDataMars.observe(viewLifecycleOwner, Observer {
             adapterMars.adapterList = it       // вызов set в адаптере
         })
         // TODO: onClickListener
 
-
-
-
     }
-
 
 }

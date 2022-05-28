@@ -1,28 +1,36 @@
 package com.example.astroproto.ui.apod
 
+import android.graphics.PointF
+import android.graphics.Rect
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.widget.ImageView
+import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
 //import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.example.astroproto.R
+import com.example.astroproto.databinding.OneApodFragmentBinding
 import com.example.astroproto.model.entity.APODResponseDTO
+import com.example.astroproto.ui.BaseFragment
 import com.example.astroproto.ui.GladeImageLoader
-import kotlinx.android.synthetic.main.one_apod_fragment_start.*
+
 //import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.*
 //import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.tv_explanation_apod_v
 
 
-class OneAPODFragment : Fragment() {
+class OneAPODFragment : Fragment (){
 
     companion object {
 
         //константа для передачи данных из фрагмента во фрагмент
         const val APOD_RESPONSE_DTO_EXTRA = "APOD_RESPONSE_DTO_EXTRA"
+
+        //константы для жестов (ч. 1 из 3)
+        private const val MAX_SCALE_FACTOR = 5f
+        private const val MIN_SCALE_FACTOR = 1f
+        private const val CORRECT_LOCATION_ANIMATION_DURATION = 300L
 
         // фабричный метод
         fun newInstance(bundle: Bundle): OneAPODFragment =
@@ -34,11 +42,26 @@ class OneAPODFragment : Fragment() {
     //private lateinit var apodResponseBundle: APODResponseTEMP
     private var isExpanded = false
 
+
+    private var _binding: OneApodFragmentBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+    // 5. см. ниже добавить строки в onCreateView
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.one_apod_fragment, container, false)
+        val view = inflater.inflate(R.layout.one_apod_fragment, container, false)
+        _binding = OneApodFragmentBinding.bind(view)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,19 +96,27 @@ class OneAPODFragment : Fragment() {
 //        })
 
 
-
+        // Методы, относящиеся к жестам (ч. 2 из 3)
+        binding.ivUrlApodV.doOnLayout { originContentRect }
+        binding.viewTouchHandler.setOnTouchListener { view, event ->
+            scaleGestureDetector.onTouchEvent(event)
+            translationHandler.onTouch(view, event)
+            true
+        }
     }
 
-    private fun displayData(apodResponseDTO: APODResponseDTO) {
-//        tv_title_apod.text = apodResponseDTO.title
-//        tv_date_apod.text = apodResponseDTO.date
-//        tv_copyright_apod.text = "\u00A9 ${apodResponseDTO.copyright}"
-//        tv_explanation_apod_v.text = apodResponseDTO.explanation
 
-        if (apodResponseDTO.media_type == "video") {
-            wv_one_url_video_apod.visibility = View.VISIBLE
-            iv_url_apod_v.visibility = View.GONE
-            val mWebView = wv_one_url_video_apod
+    ///sasafdsadfsdafdasfda
+    private fun displayData(apodResponseDTO: APODResponseDTO) {
+        binding.tvTitleApod.text = apodResponseDTO.title
+        binding.tvDateApod.text = apodResponseDTO.date
+        binding.tvCopyrightApod.text = "\u00A9 ${apodResponseDTO.copyright}"
+        binding.tvExplanationApodV.text = apodResponseDTO.explanation
+
+        val unit = if (apodResponseDTO.media_type == "video") {
+            binding.wvOneUrlVideoApod.visibility = View.VISIBLE
+            binding.ivUrlApodV.visibility = View.GONE
+            val mWebView = binding.wvOneUrlVideoApod
             mWebView.getSettings().setJavaScriptEnabled(true)
             mWebView.getSettings().setPluginState(WebSettings.PluginState.ON)
             mWebView.loadUrl(apodResponseDTO.url + "&autoplay=1&vq=small")
@@ -94,11 +125,146 @@ class OneAPODFragment : Fragment() {
 //            wv_one_url_video_apod.visibility = View.GONE
 //            iv_url_apod_v.visibility = View.VISIBLE
             val imageLoader = GladeImageLoader()
-            apodResponseDTO.url?.let { imageLoader.loadInto(it, iv_url_apod_v as ImageView) }
+            apodResponseDTO.url?.let { imageLoader.loadInto(it, binding.ivUrlApodV as ImageView) }
         }
-
-
     }
+
+
+    // Ниже методы, относящиеся к жестам (ч. 3 из 3)
+    private val originContentRect by lazy {
+        binding.ivUrlApodV.run {
+            val array = IntArray(2)
+            getLocationOnScreen(array)
+            Rect(array[0], array[1], array[0] + width, array[1] + height)
+        }
+    }
+
+    private val translationHandler by lazy {
+        object : View.OnTouchListener {
+            private var prevX = 0f
+            private var prevY = 0f
+            private var moveStarted = false
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                if (event == null || (binding.ivUrlApodV?.scaleX ?: 1f) == 1f) return false
+
+                when (event.actionMasked) {
+                    MotionEvent.ACTION_DOWN -> {
+                        prevX = event.x
+                        prevY = event.y
+                    }
+
+                    MotionEvent.ACTION_POINTER_UP -> {
+                        if (event.actionIndex == 0) {
+                            try {
+                                prevX = event.getX(1)
+                                prevY = event.getY(1)
+                            } catch (e: Exception) {
+                            }
+                        }
+                    }
+
+                    MotionEvent.ACTION_MOVE -> {
+                        if (event.pointerCount > 1) {
+                            prevX = event.x
+                            prevY = event.y
+                            return false
+                        }
+                        moveStarted = true
+                        binding.ivUrlApodV?.run {
+                            translationX += (event.x - prevX)
+                            translationY += (event.y - prevY)
+                        }
+                        prevX = event.x
+                        prevY = event.y
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        if (!moveStarted) return false
+                        reset()
+                        translateToOriginalRect()
+                    }
+                }
+                return true
+            }
+
+            private fun reset() {
+                prevX = 0f
+                prevY = 0f
+                moveStarted = false
+            }
+        }
+    }
+
+    private val scaleGestureDetector by lazy {
+        ScaleGestureDetector(context, object : ScaleGestureDetector.OnScaleGestureListener {
+            var totalScale = 1f
+
+            override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+                binding.ivUrlApodV.run {
+                    val actualPivot = PointF(
+                        (detector.focusX - translationX + pivotX * (totalScale - 1)) / totalScale,
+                        (detector.focusY - translationY + pivotY * (totalScale - 1)) / totalScale,
+                    )
+
+                    translationX -= (pivotX - actualPivot.x) * (totalScale - 1)
+                    translationY -= (pivotY - actualPivot.y) * (totalScale - 1)
+                    setPivot(actualPivot)
+                }
+                return true
+            }
+
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                totalScale *= detector.scaleFactor
+                totalScale = totalScale.coerceIn(MIN_SCALE_FACTOR, MAX_SCALE_FACTOR)
+                binding.ivUrlApodV.run {
+                    scale(totalScale)
+                    getContentViewTranslation().run {
+                        translationX += x
+                        translationY += y
+                    }
+                }
+                return true
+            }
+
+            override fun onScaleEnd(detector: ScaleGestureDetector) = Unit
+        })
+    }
+
+    private fun translateToOriginalRect() {
+        getContentViewTranslation().takeIf { it != PointF(0f, 0f) }?.let { translation ->
+            binding.ivUrlApodV?.let { view ->
+                view.animateWithDetach()
+                    .translationXBy(translation.x)
+                    .translationYBy(translation.y)
+                    .apply { duration = CORRECT_LOCATION_ANIMATION_DURATION }
+                    .start()
+            }
+        }
+    }
+
+    private fun getContentViewTranslation(): PointF {
+        return binding.ivUrlApodV.run {
+            originContentRect.let { rect ->
+                val array = IntArray(2)
+                getLocationOnScreen(array)
+                PointF(
+                    when {
+                        array[0] > rect.left -> rect.left - array[0].toFloat()
+                        array[0] + width * scaleX < rect.right -> rect.right - (array[0] + width * scaleX)
+                        else -> 0f
+                    },
+                    when {
+                        array[1] > rect.top -> rect.top - array[1].toFloat()
+                        array[1] + height * scaleY < rect.bottom -> rect.bottom - (array[1] + height * scaleY)
+                        else -> 0f
+                    }
+                )
+            }
+        }
+    }
+
+
+
 }
 
 

@@ -12,7 +12,7 @@
     <!--    </ConstraintSet>-->
 
     <Transition
-        app:constraintSetEnd="@layout/one_apod_fragment_end"
+        app:constraintSetEnd="@layout/one_apod_fragment_end2"
         app:constraintSetStart="@layout/one_apod_fragment_start"
         motion:duration="1000">
 

@@ -10,11 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.astroproto.ApiHolder
 import com.example.astroproto.R
+import com.example.astroproto.databinding.ListApodFragmentBinding
+import com.example.astroproto.databinding.ListSolarFragmentBinding
+
 import com.example.astroproto.model.entity.APODResponseDTO
 import com.example.astroproto.model.entity.SolarResponseDTO
 import com.example.astroproto.model.retrofit.RetrofitRepoApi
+import com.example.astroproto.ui.BaseFragment
 import io.reactivex.rxjava3.core.Single
-import kotlinx.android.synthetic.main.list_solar_fragment.*
 
 class ListSolarFragment : Fragment() {
 
@@ -24,11 +27,24 @@ class ListSolarFragment : Fragment() {
 
     private lateinit var viewModel: ListSolarViewModel
 
+    private var _binding: ListSolarFragmentBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.list_solar_fragment, container, false)
+        val view = inflater.inflate(R.layout.list_solar_fragment, container, false)
+        _binding = ListSolarFragmentBinding.bind(view)
+        return binding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,9 +53,9 @@ class ListSolarFragment : Fragment() {
 
 
 
-        rv_list_solar_vertical.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.rvListSolarVertical.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val adapterSolarVertical = RvAdapterSolarVertical()
-        rv_list_solar_vertical.adapter = adapterSolarVertical
+        binding.rvListSolarVertical.adapter = adapterSolarVertical
 
 
 //        val anySingle: Single<List<SolarResponseDTO>> = RetrofitRepoApi(ApiHolder().dataApi).getRepoListSolarApi()

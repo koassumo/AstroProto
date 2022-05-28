@@ -18,9 +18,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
-
         <!-- свои собственные созданные атрибуты-->
         <item name="android:windowBackground">?attr/myColorPrimaryLight</item>
+
+        <!-- Android Status Bar - прозрачный -->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
 
     </style>
 </resources>
