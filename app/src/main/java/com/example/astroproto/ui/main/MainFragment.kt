@@ -15,6 +15,8 @@ import com.example.astroproto.ui.IMyOnClickListener
 import com.example.astroproto.ui.apod.ListAPODFragment
 import com.example.astroproto.ui.solar.ListSolarFragment
 
+// more comment
+
 class MainFragment : BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
 
     companion object {
