@@ -1,75 +1,331 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewToScroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.main.MainFragment">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/main"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="?attr/colorPrimaryVariant"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:liftOnScroll="true">
 
-        <!--    1. aPod-->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title_apod"
-            style="@style/heading_text_style"
-            android:text="@string/heading_title_pod" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:menu="@menu/main_top_appbar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="@string/app_name" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_apod"
-            style="@style/padding_start_top_end_normal_rv"
-            android:clipToPadding="false"
-            android:orientation="horizontal" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <!--    2. Solar Flare-->
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/heading_text_style"
-            android:text="@string/heading_title_solar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_solar"
-            style="@style/padding_start_top_end_normal_rv"
-            android:clipToPadding="false"
-            android:orientation="horizontal" />
-
-        <!--    3. Geomagnetic Storm-->
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/heading_text_style"
-            android:text="@string/heading_title_geo" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_geo"
-            style="@style/padding_start_top_end_normal_rv"
-            android:clipToPadding="false"
-            android:orientation="horizontal" />
-
-        <!--    4. Earth Polychromatic Imaging Camera-->
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/heading_text_style"
-            android:text="@string/heading_title_epic" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_epic"
-            style="@style/padding_start_top_end_normal_rv"
-            android:clipToPadding="false"
-            android:orientation="horizontal" />
-
-        <!--    5. Mars Rover Photos -->
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/heading_text_style"
-            android:text="@string/heading_title_mars" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_mars"
-            style="@style/padding_start_top_end_normal_rv"
-            android:clipToPadding="false"
-            android:orientation="horizontal" />
+        <!--  BACK LAYOUT      -->
+        <LinearLayout
+            android:id="@+id/back_layout_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimaryVariant"
+            android:orientation="vertical">
 
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <!--   Themes-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/heading_text_style"
+                    android:src="@drawable/ic_baseline_themes_32" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/heading_text_style"
+                    android:text="@string/settings_themes_title" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleButton"
+                style="@style/padding_start_top_end_normal_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/button_one"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_themes_original" />
+
+                <Button
+                    android:id="@+id/button_two"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_themes_earth" />
+
+                <Button
+                    android:id="@+id/button_3"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_themes_mars" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+            <!--   Resolutions-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/heading_text_style"
+                    android:src="@drawable/ic_baseline_resolution_32" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/heading_text_style"
+                    android:text="@string/settings_resolutions_title" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggle_resolution"
+                style="@style/padding_start_top_end_normal_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+                <!--                app:checkedButton="@+id/button_resolution_hd"-->
+
+                <Button
+                    android:id="@+id/button_resolution_hd"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_resolutions_hd" />
+
+                <Button
+                    android:id="@+id/button_resolution_regular"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_resolutions_regular" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <!--   Icons-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/heading_text_style"
+                    android:src="@drawable/ic_baseline_icons_32" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/heading_text_style"
+                    android:text="@string/settings_icon_title" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/step_start_normal"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardview_icon_one"
+                    android:layout_width="@dimen/step_xx_large"
+                    android:layout_height="@dimen/step_xx_large"
+                    android:layout_marginStart="@dimen/step_start_normal"
+                    android:layout_marginTop="@dimen/step_start_normal"
+                    app:cardCornerRadius="@dimen/radius_normal"
+                    app:strokeColor="?attr/colorAccent"
+                    app:strokeWidth="@dimen/step_zero">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/step_start_normal"
+                        android:contentDescription="@string/content_description_media"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon1" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardview_icon_two"
+                    android:layout_width="@dimen/step_xx_large"
+                    android:layout_height="@dimen/step_xx_large"
+                    android:layout_marginStart="@dimen/step_start_normal"
+                    android:layout_marginTop="@dimen/step_start_normal"
+                    app:cardCornerRadius="@dimen/radius_normal"
+                    app:strokeColor="?attr/colorAccent"
+                    app:strokeWidth="@dimen/step_zero">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/step_start_normal"
+                        android:contentDescription="@string/content_description_media"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon2" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardview_icon_three"
+                    android:layout_width="@dimen/step_xx_large"
+                    android:layout_height="@dimen/step_xx_large"
+                    android:layout_marginStart="@dimen/step_start_normal"
+                    android:layout_marginTop="@dimen/step_start_normal"
+                    app:cardCornerRadius="@dimen/radius_normal"
+                    app:strokeColor="?attr/colorAccent"
+                    app:strokeWidth="@dimen/step_zero">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/step_start_normal"
+                        android:contentDescription="@string/content_description_media"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon3" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardview_icon_four"
+                    android:layout_width="@dimen/step_xx_large"
+                    android:layout_height="@dimen/step_xx_large"
+                    android:layout_marginStart="@dimen/step_start_normal"
+                    android:layout_marginTop="@dimen/step_start_normal"
+                    app:cardCornerRadius="@dimen/radius_normal"
+                    app:strokeColor="?attr/colorAccent"
+                    app:strokeWidth="@dimen/step_zero">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/step_start_normal"
+                        android:contentDescription="@string/content_description_media"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon4" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <!-- FRONT LAYOUT    -->
+        <LinearLayout
+            android:id="@+id/front_layout_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/step_normal_too"
+            android:background="@drawable/layout_top_corners_round"
+            android:elevation="@dimen/step_small"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/heading_text_style"
+                android:layout_marginStart="@dimen/step_large"
+                android:layout_marginTop="@dimen/step_large"
+                android:text="@string/title_front_in_main_fragment"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_normal" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/step_xxx_small"
+                android:layout_marginStart="@dimen/step_normal"
+                android:layout_marginTop="@dimen/step_small"
+                android:layout_marginEnd="@dimen/step_normal" />
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/front_layout_main2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!--    1. aPod-->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/title_apod"
+                        style="@style/heading_text_style"
+                        android:text="@string/heading_title_pod" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_apod"
+                        style="@style/padding_start_top_end_normal_rv"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal" />
+
+                    <!--    2. Solar Flare-->
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/heading_text_style"
+                        android:text="@string/heading_title_solar" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_solar"
+                        style="@style/padding_start_top_end_normal_rv"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal" />
+
+                    <!--    3. Geomagnetic Storm-->
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/heading_text_style"
+                        android:text="@string/heading_title_geo" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_geo"
+                        style="@style/padding_start_top_end_normal_rv"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal" />
+
+                    <!--    4. Earth Polychromatic Imaging Camera-->
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/heading_text_style"
+                        android:text="@string/heading_title_epic" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_epic"
+                        style="@style/padding_start_top_end_normal_rv"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal" />
+
+                    <!--    5. Mars Rover Photos -->
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/heading_text_style"
+                        android:text="@string/heading_title_mars" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_mars"
+                        style="@style/padding_start_top_end_normal_rv"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal" />
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
