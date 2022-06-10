@@ -8,19 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.astroproto.ApiHolder
-import com.example.astroproto.ApiHolder3
 import com.example.astroproto.R
 import com.example.astroproto.databinding.ListApodFragmentBinding
-import com.example.astroproto.databinding.OneApodFragmentBinding
 import com.example.astroproto.model.entity.*
-import com.example.astroproto.model.retrofit.RetrofitRepoApi
-import com.example.astroproto.model.retrofit.RetrofitRepoApi3
-import com.example.astroproto.ui.BaseFragment
-import com.example.astroproto.ui.GladeImageLoader
-import com.example.astroproto.ui.IMyOnClickListener
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
-import io.reactivex.rxjava3.core.Single
 
 
 class ListAPODFragment : Fragment() {
@@ -53,10 +44,9 @@ class ListAPODFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ListAPODViewModel::class.java)
 
 
-        val imageLoader = GladeImageLoader()
         binding.rvListApodVertical.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapterAPODVertical = RvAdapterVertical(imageLoader)
+        val adapterAPODVertical = RvAdapterVertical()
         binding.rvListApodVertical.adapter = adapterAPODVertical
 
 

@@ -6,19 +6,12 @@ import android.os.Bundle
 import android.view.*
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
-import android.widget.ImageView
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
-//import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import coil.load
 import com.example.astroproto.R
 import com.example.astroproto.databinding.OneApodFragmentBinding
 import com.example.astroproto.model.entity.APODResponseDTO
-import com.example.astroproto.ui.BaseFragment
-import com.example.astroproto.ui.GladeImageLoader
-
-//import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.*
-//import kotlinx.android.synthetic.main.one_apod_fragment_v_constrained.tv_explanation_apod_v
-
 
 class OneAPODFragment : Fragment (){
 
@@ -124,8 +117,7 @@ class OneAPODFragment : Fragment (){
         } else {
 //            wv_one_url_video_apod.visibility = View.GONE
 //            iv_url_apod_v.visibility = View.VISIBLE
-            val imageLoader = GladeImageLoader()
-            apodResponseDTO.url?.let { imageLoader.loadInto(it, binding.ivUrlApodV as ImageView) }
+            binding.ivUrlApodV.load(apodResponseDTO.url)
         }
     }
 

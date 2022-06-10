@@ -5,21 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
-import android.widget.ImageView
+
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.astroproto.R
 import com.example.astroproto.databinding.ItemRvApodBinding
-import com.example.astroproto.model.IImageLoader
 import com.example.astroproto.model.entity.APODResponseDTO
-import com.example.astroproto.ui.GladeImageLoader
-
-import com.example.astroproto.ui.IMyOnClickListener
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
 
 
-class RvAdapterVertical(val imageLoader: IImageLoader<ImageView>) :
+class RvAdapterVertical() :
     RecyclerView.Adapter<RvAdapterVertical.ViewHolder>() {
 
     var adapterList: List<APODResponseDTO> = listOf()
@@ -39,7 +35,8 @@ class RvAdapterVertical(val imageLoader: IImageLoader<ImageView>) :
     override fun getItemCount(): Int = adapterList.size
 
 
-    inner class ViewHolder(private val itemViewBinding: ItemRvApodBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {
+    inner class ViewHolder(private val itemViewBinding: ItemRvApodBinding) :
+        RecyclerView.ViewHolder(itemViewBinding.root) {
         fun bind(adapterItemView: APODResponseDTO) {
             itemView.findViewById<TextView>(R.id.tv_title_apod).text = adapterItemView.title
             itemView.findViewById<TextView>(R.id.tv_date_apod).text = adapterItemView.date
@@ -52,11 +49,13 @@ class RvAdapterVertical(val imageLoader: IImageLoader<ImageView>) :
                 itemViewBinding.ivRvUrlApod.visibility = View.GONE
                 itemViewBinding.wvRvUrlVideoApod.visibility = View.VISIBLE
                 itemViewBinding.wvRvUrlVideoApod.getSettings().setJavaScriptEnabled(true)
-                itemViewBinding.wvRvUrlVideoApod.getSettings().setPluginState(WebSettings.PluginState.ON)
+                itemViewBinding.wvRvUrlVideoApod.getSettings()
+                    .setPluginState(WebSettings.PluginState.ON)
                 itemViewBinding.wvRvUrlVideoApod.loadUrl(adapterItemView.url + "&autoplay=1&vq=small")
                 itemViewBinding.wvRvUrlVideoApod.setWebChromeClient(WebChromeClient())
             } else {
-                adapterItemView.url?.let { imageLoader.loadInto(it, itemViewBinding.ivRvUrlApod) }
+                itemViewBinding.ivRvUrlApod.load(adapterItemView.url)
+
             }
 //            itemView.findViewById<TextView>(R.id.tv_copyright_apod).text = "\u00A9 ${adapterItemView.copyright}"
 //            itemView.iv_url_apod.setImageResource(R.drawable.apod_temp)
@@ -73,6 +72,5 @@ class RvAdapterVertical(val imageLoader: IImageLoader<ImageView>) :
 
         }
     }
-
 
 }
