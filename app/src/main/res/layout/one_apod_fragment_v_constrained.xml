@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/step_negative"
-        android:layout_marginBottom="@dimen/blank_space_normal"
         app:strokeWidth="@dimen/stroke_width_normal">
 
         <androidx.constraintlayout.motion.widget.MotionLayout

@@ -49,7 +49,12 @@
     <string name="settings_resolutions_hd">HD</string>
     <string name="settings_resolutions_regular">regular</string>
 
+    <string name="settings_icon_title">Application Icons</string>
 
+    <string name="settings_themes_title">Themes</string>
+    <string name="settings_themes_original">Original</string>
+    <string name="settings_themes_earth">Earth</string>
+    <string name="settings_themes_mars">Mars</string>
 
 
 </resources>
