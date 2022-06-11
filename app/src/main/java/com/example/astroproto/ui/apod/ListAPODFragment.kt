@@ -13,7 +13,6 @@ import com.example.astroproto.databinding.ListApodFragmentBinding
 import com.example.astroproto.model.entity.*
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
 
-
 class ListAPODFragment : Fragment() {
 
     companion object {
@@ -21,6 +20,7 @@ class ListAPODFragment : Fragment() {
     }
 
     private lateinit var viewModel: ListAPODViewModel
+    private val adapterAPODVertical by lazy { RvAdapterVertical() }
 
     private var _binding: ListApodFragmentBinding? = null
     private val binding get() = _binding!!
@@ -41,34 +41,25 @@ class ListAPODFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ListAPODViewModel::class.java)
+        initRv()
+        initViewModel()
+        initListener()
+    }
 
-
+    fun initRv () {
         binding.rvListApodVertical.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val adapterAPODVertical = RvAdapterVertical()
         binding.rvListApodVertical.adapter = adapterAPODVertical
+    }
 
-
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(ListAPODViewModel::class.java)
         viewModel.liveDataAPODVertical.observe(viewLifecycleOwner, Observer {
-            adapterAPODVertical.adapterList = it
+            adapterAPODVertical.updateList(it)
         })
+    }
 
-
-//        val anySingle: Single<List<APODResponseDTO>> =
-//            RetrofitRepoApi(ApiHolder().dataApi).getRepoListApi()
-//        anySingle.subscribe({
-//            adapterAPODVertical.adapterList = it
-//            println("$it---------------------------===1===1====1========--------------------")
-//            println("--------------------------------====1===1===1========--------------------")
-//        }, {
-//            println("onError: ${it.message}-----------err-------------------*----*-----------")
-//        })
-
-
-
-
-
+    private fun initListener() {
         adapterAPODVertical.myListenerAPOD = object : IMyOnClickListenerAPOD {
             override fun onMyClicked(apodResponseDTO: APODResponseDTO) {
                 activity?.supportFragmentManager?.let {
@@ -82,21 +73,7 @@ class ListAPODFragment : Fragment() {
                 }
             }
         }
-//
-//        val anySingle3: Single<List<Response3>> = RetrofitRepoApi3(ApiHolder3().dataApi3).getRepo3()
-//        anySingle3.subscribe({
-//            println("$it-----------------==================--------------------")
-//            println("-----------------====2===2==2========--------------------")
-//            println("-----------------==================--------------------")
-//        }, {
-//            println("onError: ${it.message}-----------*--------*-------------*----*-----------")
-//        })
-
-
     }
+
 }
-
-
-//
-
 

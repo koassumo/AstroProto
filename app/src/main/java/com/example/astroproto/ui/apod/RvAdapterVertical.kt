@@ -73,4 +73,10 @@ class RvAdapterVertical() :
         }
     }
 
+
+    fun updateList (newList: List<APODResponseDTO>) {
+        this.adapterList = newList
+    }
+
+
 }
