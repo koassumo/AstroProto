@@ -8,16 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.astroproto.ApiHolder
 import com.example.astroproto.R
-import com.example.astroproto.databinding.ListApodFragmentBinding
 import com.example.astroproto.databinding.ListSolarFragmentBinding
-
-import com.example.astroproto.model.entity.APODResponseDTO
-import com.example.astroproto.model.entity.SolarResponseDTO
-import com.example.astroproto.model.retrofit.RetrofitRepoApi
-import com.example.astroproto.ui.BaseFragment
-import io.reactivex.rxjava3.core.Single
 
 class ListSolarFragment : Fragment() {
 

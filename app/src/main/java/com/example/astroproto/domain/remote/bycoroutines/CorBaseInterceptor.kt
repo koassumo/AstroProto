@@ -1,4 +1,4 @@
-package com.project.core.domain
+package com.example.astroproto.domain.remote.bycoroutines
 
 import com.example.astroproto.BuildConfig
 import okhttp3.Interceptor

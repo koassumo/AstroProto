@@ -1,4 +1,4 @@
-package com.example.astroproto.model.entity
+package com.example.astroproto.entity
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose

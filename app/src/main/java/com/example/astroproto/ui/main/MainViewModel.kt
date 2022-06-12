@@ -2,7 +2,7 @@ package com.example.astroproto.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.astroproto.model.repository.RepositoryRv
+import com.example.astroproto.domain.local.repository.RepositoryRv
 
 class MainViewModel : ViewModel() {
     //   <<<<<<<<<<<<<<<<<<<[[   1.

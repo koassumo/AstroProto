@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/step_xx_small"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
-    tools:context="com.example.astroproto.ui.MainActivity">
+    tools:context="com.example.astroproto.ui.main.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

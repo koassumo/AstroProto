@@ -6,6 +6,8 @@
         <entry key="..\:/_android/AstroProto/app/src/main/res/drawable/ic_baseline_icons_32.xml" value="0.1345" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1345" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/drawable/layout_top_corners_round.xml" value="0.14" />
+        <entry key="..\:/_android/AstroProto/app/src/main/res/layout/_one_apod_fragment_v_constrained.xml" value="0.36666666666666664" />
+        <entry key="..\:/_android/AstroProto/app/src/main/res/layout/_one_apod_fragment_v_constrained_end.xml" value="0.36666666666666664" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/item_rv.xml" value="0.32314814814814813" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/item_rv_apod.xml" value="0.36666666666666664" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/item_rv_main_common.xml" value="0.36666666666666664" />
@@ -21,6 +23,7 @@
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment.xml" value="0.29292929292929293" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_end.xml" value="0.29292929292929293" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_end2.xml" value="0.18802083333333333" />
+        <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_linear_not_used.xml" value="0.36666666666666664" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_start.xml" value="0.36666666666666664" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_v_constrained.xml" value="0.30526315789473685" />
         <entry key="..\:/_android/AstroProto/app/src/main/res/layout/one_apod_fragment_v_constrained_end.xml" value="0.14728682170542637" />

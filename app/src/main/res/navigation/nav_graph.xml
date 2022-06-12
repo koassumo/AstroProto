@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment2">
+    <fragment
+        android:id="@+id/mainFragment2"
+        android:name="com.example.astroproto.ui.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment2_to_listAPODFragment"
+            app:destination="@id/listAPODFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_oneAPODFragment"
+            app:destination="@id/oneAPODFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listAPODFragment"
+        android:name="com.example.astroproto.ui.apod.ListAPODFragment"
+        android:label="list_apod_fragment"
+        tools:layout="@layout/list_apod_fragment" >
+        <action
+            android:id="@+id/action_listAPODFragment_to_oneAPODFragment"
+            app:destination="@id/oneAPODFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/oneAPODFragment"
+        android:name="com.example.astroproto.ui.apod.OneAPODFragment"
+        android:label="one_apod_fragment"
+        tools:layout="@layout/one_apod_fragment" />
+</navigation>

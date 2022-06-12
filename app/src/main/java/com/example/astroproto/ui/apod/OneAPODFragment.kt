@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import coil.load
 import com.example.astroproto.R
 import com.example.astroproto.databinding.OneApodFragmentBinding
-import com.example.astroproto.model.entity.APODResponseDTO
+import com.example.astroproto.entity.APODResponseDTO
 
 class OneAPODFragment : Fragment (){
 

@@ -1,8 +1,7 @@
-package com.example.astroproto.domain
+package com.example.astroproto.domain.remote.bycoroutines
 
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.project.core.domain.CorBaseInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

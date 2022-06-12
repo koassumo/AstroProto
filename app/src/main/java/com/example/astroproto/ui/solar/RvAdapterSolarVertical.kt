@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.astroproto.R
-import com.example.astroproto.model.entity.SolarResponseDTO
+import com.example.astroproto.entity.SolarResponseDTO
 import com.example.astroproto.ui.IMyOnClickListener
 
 // в этой строке заненен конкретный из этого класса viewHolder на общий из библиотеки

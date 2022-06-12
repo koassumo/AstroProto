@@ -1,6 +1,6 @@
 package com.example.astroproto.ui
 
-import com.example.astroproto.model.entity.SolarResponseDTO
+import com.example.astroproto.entity.SolarResponseDTO
 
 sealed class AppState {
     // enum - ограниченные параметры

@@ -9,7 +9,7 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.astroproto.R
 import com.example.astroproto.databinding.ListApodFragmentBinding
-import com.example.astroproto.model.entity.*
+import com.example.astroproto.entity.APODResponseDTO
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
 
 class ListAPODFragment : Fragment() {
@@ -42,7 +42,7 @@ class ListAPODFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRv()
         initViewModel()
-        initListener()
+        //initListener()
 
     }
 
@@ -60,21 +60,21 @@ class ListAPODFragment : Fragment() {
         })
     }
 
-    private fun initListener() {
-        adapterAPODVertical.myListenerAPOD = object : IMyOnClickListenerAPOD {
-            override fun onMyClicked(apodResponseDTO: APODResponseDTO) {
-                activity?.supportFragmentManager?.let {
-                    it.beginTransaction()
-                        .replace(R.id.container, OneAPODFragment.newInstance(Bundle().apply {
-                            putParcelable(OneAPODFragment.APOD_RESPONSE_DTO_EXTRA, apodResponseDTO)
-                        }
-                        ))
-                        .addToBackStack(null)
-                        .commit()
-                }
-            }
-        }
-    }
+//    private fun initListener() {
+//        adapterAPODVertical.myListenerAPOD = object : IMyOnClickListenerAPOD {
+//            override fun onMyClicked(apodResponseDTO: APODResponseDTO) {
+//                activity?.supportFragmentManager?.let {
+//                    it.beginTransaction()
+//                        .replace(R.id.container, OneAPODFragment.newInstance(Bundle().apply {
+//                            putParcelable(OneAPODFragment.APOD_RESPONSE_DTO_EXTRA, apodResponseDTO)
+//                        }
+//                        ))
+//                        .addToBackStack(null)
+//                        .commit()
+//                }
+//            }
+//        }
+//    }
 
 }
 

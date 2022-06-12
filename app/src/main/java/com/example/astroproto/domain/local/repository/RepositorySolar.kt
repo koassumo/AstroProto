@@ -1,6 +1,6 @@
-package com.example.astroproto.model.repository
+package com.example.astroproto.domain.local.repository
 
-import com.example.astroproto.model.entity.SolarResponseDTO
+import com.example.astroproto.entity.SolarResponseDTO
 
 object RepositorySolar {
     private val listSolarResponse = mutableListOf(

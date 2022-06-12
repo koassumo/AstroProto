@@ -1,12 +1,16 @@
 package com.example.astroproto.ui.main
 
+import android.animation.ValueAnimator
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.TranslateAnimation
+import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.astroproto.R
 import com.example.astroproto.databinding.MainFragmentBinding
@@ -24,7 +28,9 @@ class MainFragment : BaseFragment<MainFragmentBinding>(MainFragmentBinding::infl
     }
 
     private lateinit var viewModel: MainViewModel
-
+    // backdrop
+    var showBackLayout = false
+    var frontLayoutParams: RelativeLayout.LayoutParams? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -108,6 +114,58 @@ class MainFragment : BaseFragment<MainFragmentBinding>(MainFragmentBinding::infl
         })
         // TODO: onClickListener
 
+
+        binding.appBarLayout.findViewById<View>(R.id.main_appbar).findViewById<View>(R.id.settings).setOnClickListener { dropLayout() }
+        binding.appBarLayout.findViewById<View>(R.id.main_appbar).setOnClickListener { dropLayout() }
+
     }
+
+
+    private fun dropLayout() {
+        showBackLayout = !showBackLayout
+        frontLayoutParams = binding.frontLayoutMain.layoutParams as RelativeLayout.LayoutParams
+        if (showBackLayout) {
+            val varl = ValueAnimator.ofInt(binding.backLayoutMain.height)
+            varl.duration = 200
+            varl.addUpdateListener { animation ->
+                frontLayoutParams!!.setMargins(0, (animation.animatedValue as Int) - 72, 0, 0)
+                binding.frontLayoutMain.layoutParams = frontLayoutParams
+            }
+            varl.start()
+        } else {
+            frontLayoutParams!!.setMargins(0, 18, 0, 0)
+            binding.frontLayoutMain.layoutParams = frontLayoutParams
+            val anim = TranslateAnimation(
+                0F, 0F,
+                binding.backLayoutMain.height.toFloat(), 0F
+            )
+            anim.startOffset = 0
+            anim.duration = 200
+            binding.frontLayoutMain.startAnimation(anim)
+        }
+    }
+
+
+    private fun onApodClickListener() {
+        findNavController().navigate(R.id.action_mainFragment2_to_listAPODFragment)
+    }
+
+    private fun onSolarFlareClickListener(itemRv: ItemRv) {
+        if (itemRv.title == getString(R.string.title_main_solar))
+            findNavController().navigate(R.id.action_main_fragment_to_navigation_flr)
+        else
+            findNavController().navigate(R.id.action_main_fragment_to_navigation_gst)
+    }
+
+    private fun onEpicClickListener(itemRv: ItemRv) {
+        findNavController().navigate(R.id.action_main_fragment_to_navigation_epic)
+    }
+
+    private fun onMarsClickListener(itemRv: ItemRv) {
+        val action = MainFragmentDirections.actionMainFragmentToNavigationMrp(itemRv.title)
+        findNavController().navigate(action)
+    }
+
+
 
 }

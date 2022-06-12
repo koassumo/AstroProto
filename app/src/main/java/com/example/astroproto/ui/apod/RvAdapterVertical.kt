@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.astroproto.R
 import com.example.astroproto.databinding.ItemRvApodBinding
-import com.example.astroproto.model.entity.APODResponseDTO
+import com.example.astroproto.entity.APODResponseDTO
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
 
 

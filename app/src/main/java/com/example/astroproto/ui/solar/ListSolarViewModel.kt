@@ -3,8 +3,8 @@ package com.example.astroproto.ui.solar
 import android.icu.text.SimpleDateFormat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.astroproto.model.repository.RepositorySolar
-import com.example.astroproto.model.entity.SolarResponseDTO
+import com.example.astroproto.domain.local.repository.RepositorySolar
+import com.example.astroproto.entity.SolarResponseDTO
 import java.util.*
 
 class ListSolarViewModel : ViewModel() {

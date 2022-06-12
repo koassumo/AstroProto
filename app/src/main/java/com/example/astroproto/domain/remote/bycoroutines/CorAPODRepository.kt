@@ -1,6 +1,6 @@
-package com.project.apod.domain.remote
+package com.example.astroproto.domain.remote.bycoroutines
 
-import com.example.astroproto.model.entity.APODResponseDTO
+import com.example.astroproto.entity.APODResponseDTO
 
 class CorAPODRepository() {
 

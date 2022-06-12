@@ -1,4 +1,4 @@
-package com.example.astroproto.model.repository
+package com.example.astroproto.domain.local.repository
 
 import com.example.astroproto.ui.main.ItemRvCommon
 
