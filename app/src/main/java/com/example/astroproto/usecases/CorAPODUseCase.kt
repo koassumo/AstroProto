@@ -1,13 +1,13 @@
 package com.project.apod.usecases
 
 import com.example.astroproto.model.entity.APODResponseDTO
-import com.project.apod.domain.remote.APODRepository
+import com.project.apod.domain.remote.CorAPODRepository
 import com.project.core.domain.CalendarRepository
 
-class APODUseCase() {
+class CorAPODUseCase() {
 
     private val calendarRepository: CalendarRepository by lazy { CalendarRepository() }
-    private val remoteRepository: APODRepository by lazy { APODRepository() }
+    private val remoteRepository: CorAPODRepository by lazy { CorAPODRepository() }
 
     suspend fun load(): List<APODResponseDTO> {
         calendarRepository.refreshDates(CalendarRepository.RangeFlag.ONE_MONTH)
