@@ -1,17 +1,17 @@
 package com.example.astroproto.ui.apod
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.astroproto.R
 import com.example.astroproto.databinding.ListApodFragmentBinding
 import com.example.astroproto.model.entity.*
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
+import kotlinx.coroutines.launch
 
 class ListAPODFragment : Fragment() {
 
@@ -30,6 +30,24 @@ class ListAPODFragment : Fragment() {
         _binding = null
     }
 
+
+    init {
+        lifecycleScope.launch {
+            whenCreated {
+
+                //__apodViewModel.load(androidNetworkStatus.isNetworkAvailable())
+            }
+            whenResumed {
+//              __  adapter.isNeededToLoadInFlow.collect { isNeededToLoad ->
+//                    if (isNeededToLoad && androidNetworkStatus.isNetworkAvailable()) {
+//                        apodViewModel.reload()
+//                    }
+//                }
+            }
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,9 +62,10 @@ class ListAPODFragment : Fragment() {
         initRv()
         initViewModel()
         initListener()
+
     }
 
-    fun initRv () {
+    private fun initRv () {
         binding.rvListApodVertical.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvListApodVertical.adapter = adapterAPODVertical
