@@ -6,12 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.astroproto.ApiHolder
 import com.example.astroproto.model.entity.APODResponseDTO
 import com.example.astroproto.model.retrofit.RetrofitRepoApi
+import com.project.apod.usecases.APODUseCase
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.*
 
 
-class ListAPODViewModel : ViewModel() {
+class ListAPODViewModel (): ViewModel() {
 
+    private val apodUseCase: APODUseCase by lazy { APODUseCase() }
     val liveDataAPODVertical = MutableLiveData<List<APODResponseDTO>>()
 
     init {
@@ -19,8 +21,9 @@ class ListAPODViewModel : ViewModel() {
             withContext(Dispatchers.IO) {
                 val mRxSingle: Single<List<APODResponseDTO>> =
                     RetrofitRepoApi(ApiHolder().dataApi).getRepoListApi()
+                apodUseCase.load()
                 mRxSingle.subscribe({
-                    liveDataAPODVertical.value = it
+                    liveDataAPODVertical.value = it.reversed()
                 }, {
                 })
                 return@withContext

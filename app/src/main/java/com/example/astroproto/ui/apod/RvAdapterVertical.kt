@@ -1,5 +1,6 @@
 package com.example.astroproto.ui.apod
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.astroproto.R
@@ -15,14 +18,29 @@ import com.example.astroproto.model.entity.APODResponseDTO
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
 
 
-class RvAdapterVertical() :
+class RvAdapterVertical :
     RecyclerView.Adapter<RvAdapterVertical.ViewHolder>() {
 
-    var adapterList: List<APODResponseDTO> = listOf()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+//================================================================================================
+// Т.е. по факту убрали notifyDataSetChanged() и поручаем сравнение списка на входе
+// классу AsyncListDiffer
+    private val myDiffUtilCallBack = object : DiffUtil.ItemCallback<APODResponseDTO>() {
+        override fun areItemsTheSame(oldItem: APODResponseDTO, newItem: APODResponseDTO): Boolean =
+            oldItem.title == newItem.title
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: APODResponseDTO, newItem: APODResponseDTO): Boolean =
+            oldItem == newItem
+    }
+
+    val differ = AsyncListDiffer(this, myDiffUtilCallBack)
+
+    var adapterList: List<APODResponseDTO>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
+//================================================================================================
+
+
     var myListenerAPOD: IMyOnClickListenerAPOD? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -33,7 +51,6 @@ class RvAdapterVertical() :
     }
 
     override fun getItemCount(): Int = adapterList.size
-
 
     inner class ViewHolder(private val itemViewBinding: ItemRvApodBinding) :
         RecyclerView.ViewHolder(itemViewBinding.root) {
@@ -55,16 +72,7 @@ class RvAdapterVertical() :
                 itemViewBinding.wvRvUrlVideoApod.setWebChromeClient(WebChromeClient())
             } else {
                 itemViewBinding.ivRvUrlApod.load(adapterItemView.url)
-
             }
-//            itemView.findViewById<TextView>(R.id.tv_copyright_apod).text = "\u00A9 ${adapterItemView.copyright}"
-//            itemView.iv_url_apod.setImageResource(R.drawable.apod_temp)
-//
-//            when (adapterItemView.title) {
-//                "The Gator-back Rocks of Mars" -> itemView.iv_url_apod.setImageResource(R.drawable.apod_temp2)
-//            }
-            //itemView.findViewById<ImageView>(R.id.iv_pic).setImageResource(R.drawable.no_image)
-
 
             itemView.setOnClickListener {
                 myListenerAPOD?.onMyClicked(apodResponseDTO = adapterItemView)
@@ -73,10 +81,8 @@ class RvAdapterVertical() :
         }
     }
 
-
     fun updateList (newList: List<APODResponseDTO>) {
         this.adapterList = newList
     }
-
 
 }

@@ -11,7 +11,6 @@ import com.example.astroproto.R
 import com.example.astroproto.databinding.ListApodFragmentBinding
 import com.example.astroproto.model.entity.*
 import com.example.astroproto.ui.IMyOnClickListenerAPOD
-import kotlinx.coroutines.launch
 
 class ListAPODFragment : Fragment() {
 
@@ -29,24 +28,6 @@ class ListAPODFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
-
-    init {
-        lifecycleScope.launch {
-            whenCreated {
-
-                //__apodViewModel.load(androidNetworkStatus.isNetworkAvailable())
-            }
-            whenResumed {
-//              __  adapter.isNeededToLoadInFlow.collect { isNeededToLoad ->
-//                    if (isNeededToLoad && androidNetworkStatus.isNetworkAvailable()) {
-//                        apodViewModel.reload()
-//                    }
-//                }
-            }
-        }
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +53,7 @@ class ListAPODFragment : Fragment() {
     }
 
     private fun initViewModel() {
+        //option by callback (without coroutine)
         viewModel = ViewModelProvider(this).get(ListAPODViewModel::class.java)
         viewModel.liveDataAPODVertical.observe(viewLifecycleOwner, Observer {
             adapterAPODVertical.updateList(it)
